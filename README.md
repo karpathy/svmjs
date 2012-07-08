@@ -11,7 +11,7 @@ are in /test.
 
 Can be found here: http://cs.stanford.edu/~karpathy/svmjs/demo/ 
 
-Code is inside /demo directory.
+Corresponding code is inside /demo directory.
 
 ## Usage
 
@@ -19,9 +19,11 @@ The simplest use case:
 ```javascript
 // include the library
 <script src="./svmjs/lib/svm.js"></script>
+<script>
 svm = svmjs.SVM();
 svm.train(data, labels);
 testlabels = svm.predict(testdata);
+</script>
 ```
 Here, `data` and `testdata` are a 2D, NxD array of floats, `labels` and `testlabels`
 is an array of size N that contains 1 or -1. You can also query for the raw margins:
@@ -34,7 +36,7 @@ The library supports arbitrary kernels, but currently comes with linear and rbf 
 ```javascript
 svm.train(data, labels, { kernel: function(v1,v2){ /* return K(v1, v2) */} }); // arbitrary function
 svm.train(data, labels, { kernel: svmjs.linearKernel });
-svm.train(data, labels, { kernel: svmjs.makeRbfKernel(0.5) });
+svm.train(data, labels, { kernel: svmjs.makeRbfKernel(0.5) }); // sigma = 0.5
 ```
 
 For linear kernels, you can also query the weights and offset directly:
@@ -46,7 +48,7 @@ wb= svm.getWeights();
 For training you can pass in several options. Here are the defaults:
 ```javascript
 var options = {};
-/* Higher = you trust your data more. Lower = more regularization. 
+/* For C, Higher = you trust your data more. Lower = more regularization. 
 Should be in range of around 1e-2 ... 1e5 at most. */
 options.C = 1.0; 
 options.tol = 1e-4; // do not touch this unless you're pro
