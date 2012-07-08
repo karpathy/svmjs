@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>Small svmjs unit test</title>
+<script src="../lib/svm.js"></script>
+<script type="text/javascript">
+
+// MATLAB Reference code is available in testsvm.m
+function testsvm(){
+  
+  // Linearly non-separable test
+  var N=10;
+  var data = new Array(N);
+  var labels= new Array(N);
+  data[0]=[-0.4326  ,  1.1909 ];
+  data[1]= [3.0, 4.0]; // this point makes data non-separable
+  data[2]=[0.1253 , -0.0376   ];
+  data[3]=[0.2877 ,   0.3273  ];
+  data[4]=[-1.1465 ,   0.1746 ];
+  data[5]=[1.8133 ,   2.1139  ];
+  data[6]=[2.7258 ,   3.0668  ];
+  data[7]=[1.4117 ,   2.0593  ];
+  data[8]=[4.1832 ,   1.9044  ];
+  data[9]=[1.8636 ,   1.1677  ];
+  
+  labels[0]= 1;
+  labels[1]= 1;
+  labels[2]= 1;
+  labels[3]= 1;
+  labels[4]= 1;
+  labels[5]= -1;
+  labels[6]= -1;
+  labels[7]= -1;
+  labels[8]= -1;
+  labels[9]= -1;
+  
+  var svm= new svmjs.SVM();
+  svm.train(data, labels, {C: 3, numpasses: 100}); // make more passes to increase precision
+  
+  if(console) {
+    // print weights and offset
+    wb = svm.getWeights();
+    for(var i=0;i<wb.w.length;i++) {
+      console.log("w_%d = %f", i, wb.w[i]);
+    }
+    console.log("b = %f", wb.b);
+    
+    // print predicted margins
+    var marg= svm.margins(data);
+    for(var i=0;i<N;i++) {
+      console.log("%f, %f", labels[i], marg[i]);
+    }
+  }
+  
+  asserteqf(wb.w[0], -1.1096);
+  asserteqf(wb.w[1], -0.0590);
+  asserteqf(wb.b, 1.1368);
+  asserteqf(marg[0], 1.5466);
+  asserteqf(marg[1], -2.4281);
+  asserteqf(marg[2], 1.0000);
+  asserteqf(marg[3], 0.7983);
+  asserteqf(marg[4], 2.3987);
+  asserteqf(marg[5], -1.0000);
+  asserteqf(marg[6], -2.0688);
+  asserteqf(marg[7], -0.5511);
+  asserteqf(marg[8], -3.6174);
+  asserteqf(marg[9], -1.0000);
+  if(pass) { document.bgColor = "#9F9"; } 
+  else { document.bgColor = "#F99"; }
+}
+
+// "unit testing" >.<
+var pass= true;
+function myprint(s) {
+  document.getElementById("printdiv").innerHTML += s+"<br />"
+}
+function asserteqf(got, want) {
+  if(Math.abs(want-got) > 1e-3) {
+    myprint("wanted " + want + " but got " + got);
+    pass= false;
+  }  else {
+    myprint("wanted " + want + " and got " + got + " OK.");
+  }
+}
+
+</script>
+
+<style type="text/css">
+body {
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 12px;
+}
+</style>
+
+</head>
+
+<body onLoad="testsvm();">
+Poor man's unit tests:
+<div id="printdiv"></div>
+</body>
+</html>
