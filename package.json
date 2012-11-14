@@ -1,0 +1,12 @@
+{
+  "name": "svm",
+  "description": "Support Vector Machines",
+  "version": "0.1.0",
+  "author": "Andrej Karpathy <andrej.karpathy@gmail.com>",
+  "main": "./lib/svm",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/karpathy/svmjs.git"
+  },
+  "keywords": ["support vector machines", "machine learning", "classifier"]
+}

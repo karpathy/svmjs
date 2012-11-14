@@ -9,7 +9,7 @@ are in /test.
 
 ## Online GUI demo
 
-Can be found here: http://cs.stanford.edu/~karpathy/svmjs/demo/ 
+Can be found here: http://cs.stanford.edu/~karpathy/svmjs/demo/
 
 Corresponding code is inside /demo directory.
 
@@ -41,16 +41,16 @@ svm.train(data, labels, { kernel: svmjs.makeRbfKernel(0.5) }); // sigma = 0.5
 
 For linear kernels, you can also query the weights and offset directly:
 ```javascript
-wb= svm.getWeights(); 
+wb= svm.getWeights();
 //wb.w is array of weights and wb.b is the bias term
 ```
 
 For training you can pass in several options. Here are the defaults:
 ```javascript
 var options = {};
-/* For C, Higher = you trust your data more. Lower = more regularization. 
+/* For C, Higher = you trust your data more. Lower = more regularization.
 Should be in range of around 1e-2 ... 1e5 at most. */
-options.C = 1.0; 
+options.C = 1.0;
 options.tol = 1e-4; // do not touch this unless you're pro
 options.maxiter = 10000; // if you have a larger problem, you may need to increase this
 options.kernel = svmjs.linearKernel; // discussed above
@@ -58,16 +58,33 @@ options.numpasses = 10; // increase this for higher precision of the result. (bu
 svm.train(data, labels, options);
 ```
 
+## Using in node
+To use this library in [node.js](http://nodejs.org/), install with `npm`:
+
+```
+npm install svm
+```
+
+And use like so:
+
+```javascript
+var svm = require("svm");
+
+var SVM = new svm.SVM();
+
+SVM.train(data, labels);
+```
+
 ## Implementation details
-The SMO algorithm is very space efficient, so you need not worry about 
+The SMO algorithm is very space efficient, so you need not worry about
 running out of space no matter how large your problem is. However, you do need to
-worry about runtime efficiency. In practice, there are many heuristics one can 
+worry about runtime efficiency. In practice, there are many heuristics one can
 use to select the pair of alphas (i,j) to optimize and this uses a rather naive
 approach. If you have a large and complex problem, you will need to increase
 maxiter a lot. (or don't use Javascript!)
 
-If you intend to use only linear SVM and are worried about efficiency, I recommend 
-you train it, get the weights out with getWeights(), and use them directly in 
+If you intend to use only linear SVM and are worried about efficiency, I recommend
+you train it, get the weights out with getWeights(), and use them directly in
 your code from then on.
 
 ## License
