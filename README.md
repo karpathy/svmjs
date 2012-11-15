@@ -20,7 +20,7 @@ The simplest use case:
 // include the library
 <script src="./svmjs/lib/svm.js"></script>
 <script>
-svm = svmjs.SVM();
+svm = new svmjs.SVM();
 svm.train(data, labels);
 testlabels = svm.predict(testdata);
 </script>
@@ -69,9 +69,7 @@ And use like so:
 
 ```javascript
 var svm = require("svm");
-
 var SVM = new svm.SVM();
-
 SVM.train(data, labels);
 ```
 

@@ -8,5 +8,5 @@
     "type": "git",
     "url": "http://github.com/karpathy/svmjs.git"
   },
-  "keywords": ["support vector machines", "machine learning", "classifier"]
+  "keywords": ["support vector machines", "machine learning", "classifier", "svm"]
 }
