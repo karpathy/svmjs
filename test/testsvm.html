@@ -34,7 +34,7 @@ function testsvm(){
   labels[9]= -1;
   
   var svm= new svmjs.SVM();
-  svm.train(data, labels, {C: 3, numpasses: 100}); // make more passes to increase precision
+  svm.train(data, labels, { C: 3, numpasses: 100 }); // make more passes to increase precision
   
   if(console) {
     // print weights and offset

@@ -58,16 +58,16 @@ function myinit(){
 function retrainSVM() {
   
   if(kernelid === 1) {
-    trainstats= svm.train(data, labels, { kernel: svmjs.makeRbfKernel(rbfKernelSigma) , C: svmC});
+    trainstats= svm.train(data, labels, { kernel: 'rbf', rbfsigma: rbfKernelSigma, C: svmC});
   }
   if(kernelid === 0) {
-    trainstats= svm.train(data, labels, { kernel: svmjs.linearKernel , C: svmC});
+    trainstats= svm.train(data, labels, { kernel: 'linear' , C: svmC});
     wb= svm.getWeights();
   }
   
   dirty= true; // to redraw screen
-}  
-  
+}
+ 
 function update(){
 }
 
