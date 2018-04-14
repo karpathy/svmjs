@@ -2,6 +2,8 @@
 Andrej Karpathy
 July 2012
 
+[![Slack](https://slack.bri.im/badge.svg)](https://slack.bri.im)
+
 svmjs is a lightweight implementation of the SMO algorithm to train a binary
 Support Vector Machine. As this uses the dual formulation, it also supports
 arbitrary kernels. Correctness test, together with MATLAB reference code
